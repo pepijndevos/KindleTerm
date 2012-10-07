@@ -1,0 +1,4 @@
+#!/bin/sh
+jarsigner -keystore /home/hw/dev/k/KDK/developer.keystore -storepass password "$1" dktest
+jarsigner -keystore /home/hw/dev/k/KDK/developer.keystore -storepass password "$1" ditest
+jarsigner -keystore /home/hw/dev/k/KDK/developer.keystore -storepass password "$1" dntest

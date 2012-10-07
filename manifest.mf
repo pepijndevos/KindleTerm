@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: KindleTerm
+Implementation-Version: 0.2
+Implementation-Vendor: H-W Hilse
+Network-Access-Grants: sponsored
+Implementation-URL: http://hilses.de/
+Amazon-Cover-Image: logo.jpg
+Main-Class: kindle.TermKindlet
