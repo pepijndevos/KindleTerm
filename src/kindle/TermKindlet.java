@@ -40,7 +40,9 @@ import org.apache.log4j.PatternLayout;
  * 
  * @author VDP <vdp DOT kindle AT gmail.com>
  */
-public class TermKindlet extends AbstractKindlet {
+public class TermKindlet extends AbstractKindlet
+    implements RemoteKbdReceiver.RKbdStatusListener  {
+
     private KindletContext ctx;
     private Container root;
     private KindleTerminal term;
@@ -48,6 +50,9 @@ public class TermKindlet extends AbstractKindlet {
     private Logger log;
     private KImage keybLayoutImage;
     private Image keybLayoutImg;
+    private RemoteKbdReceiver remoteKeyboard;
+
+    private String host = "KindleTermHD";
 
     public void create(KindletContext context) {
         try {
@@ -73,10 +78,16 @@ public class TermKindlet extends AbstractKindlet {
             
             term.requestFocus();
 
+            ctx.setSubTitle("");
+
             root.validate();
             root.setVisible(true);
 
             session.connect("127.0.0.1", 23);
+
+            remoteKeyboard = new RemoteKbdReceiver(3333, term, term);
+            remoteKeyboard.setRKbdStatusListener(TermKindlet.this);
+            remoteKeyboard.start();
 
             log.debug("kindlet's create() finished OK");
         }
@@ -89,6 +100,9 @@ public class TermKindlet extends AbstractKindlet {
         if (session != null)
             session.disconnect();
 
+        if (remoteKeyboard != null)
+            remoteKeyboard.kill();
+
         if (term != null)
             term.kill();
     }
@@ -98,5 +112,13 @@ public class TermKindlet extends AbstractKindlet {
     }
 
     public void stop() {
+    }
+
+    public void statusChanged(boolean isAttached) {
+        String title = "";
+        if (isAttached)
+            title += " (RKbd)";
+
+        ctx.setSubTitle(title);
     }
 }
