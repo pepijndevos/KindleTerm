@@ -563,6 +563,8 @@ public class KindleTerminal
             buffer.keyPressed(VT320.VK_BACK_SPACE, 0);
         } else if (code == KindleKeyCodes.VK_FIVE_WAY_UP) {
             buffer.keyPressed(VT320.VK_UP, 0);
+        } else if (code == KindleKeyCodes.VK_FIVE_WAY_DOWN) {
+            buffer.keyPressed(VT320.VK_DOWN, 0);
         } else if (code == KeyEvent.VK_LEFT) {
             buffer.keyPressed(VT320.VK_LEFT, 0);
         } else if (code == KeyEvent.VK_RIGHT) {
