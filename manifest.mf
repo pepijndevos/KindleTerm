@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
-Implementation-Title: KindleTerm
+Implementation-Title: KindleTermPV
 Implementation-Version: 0.2
-Implementation-Vendor: H-W Hilse
+Implementation-Vendor: DevOS
 Network-Access-Grants: sponsored
-Implementation-URL: http://hilses.de/
+Implementation-URL: http://pepijndevos.nl
 Amazon-Cover-Image: logo.jpg
 Main-Class: kindle.TermKindlet
