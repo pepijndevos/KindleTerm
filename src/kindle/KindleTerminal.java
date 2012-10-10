@@ -63,7 +63,7 @@ public class KindleTerminal
     // ------------------------------- Constants
     private static final int ROT_NORMAL = 0;
     private static final int ROT_90 = 2;
-    private static final int FONT_SIZE = 14;
+    private static final int FONT_SIZE = 18;
 
     // If more than UPDATE_THRESHOLD paint operations are needed the
     // whole screen is refreshed instead.
@@ -453,7 +453,8 @@ public class KindleTerminal
 
     private void initFont() {
         font = context.getUIResources().getFont(KFontFamilyName.MONOSPACE,
-                FONT_SIZE, KFontStyle.BOLD);
+                FONT_SIZE, KFontStyle.PLAIN);
+	log.debug(font.getFamily());
         FontMetrics fm = getToolkit().getFontMetrics(font);
         fontHeight = fm.getHeight();
         fontWidth = fm.charWidth('W');

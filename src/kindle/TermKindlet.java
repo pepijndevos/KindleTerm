@@ -25,6 +25,8 @@ import app.session.TelnetSession;
 import com.amazon.kindle.kindlet.AbstractKindlet;
 import com.amazon.kindle.kindlet.KindletContext;
 import com.amazon.kindle.kindlet.ui.KImage;
+import com.amazon.kindle.kindlet.ui.KindleOrientation;
+import com.amazon.kindle.kindlet.ui.OrientationController;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Image;
@@ -53,6 +55,7 @@ public class TermKindlet extends AbstractKindlet
     private KImage keybLayoutImage;
     private Image keybLayoutImg;
     private RemoteKbdReceiver remoteKeyboard;
+    private int originalOrientation;
 
     private String host = "KindleTermHD";
 
@@ -63,6 +66,7 @@ public class TermKindlet extends AbstractKindlet
 	defaults.setProperty("host", "127.0.0.1");
 	defaults.setProperty("port", "23");
 	defaults.setProperty("cmd", "");
+	defaults.setProperty("orientation", "portrait");
 
 	props = new Properties(defaults);
 
@@ -80,6 +84,18 @@ public class TermKindlet extends AbstractKindlet
         try {
             ctx = context;
             root = ctx.getRootContainer();
+
+	    readProps();
+
+
+	    OrientationController ocnt = ctx.getOrientationController();
+	    originalOrientation = ocnt.getOrientation();
+	    if(props.getProperty("orientation").equals("portrait")) {
+		    ocnt.lockOrientation(KindleOrientation.PORTRAIT);
+	    } else if(props.getProperty("orientation").equals("landscape")) {
+		    ocnt.lockOrientation(KindleOrientation.LANDSCAPE);
+	    }
+
 
             log = Logger.getLogger(TermKindlet.class.getName());
             try {
@@ -104,8 +120,6 @@ public class TermKindlet extends AbstractKindlet
 
             root.validate();
             root.setVisible(true);
-
-	    readProps();
 
             session.connect(props.getProperty("host"),
 			    Integer.parseInt(props.getProperty("port")));
@@ -142,7 +156,10 @@ public class TermKindlet extends AbstractKindlet
             remoteKeyboard.kill();
 
         if (term != null)
-            term.kill();
+            term.kill(); 
+
+	OrientationController ocnt = ctx.getOrientationController();
+        ocnt.lockOrientation(originalOrientation);
     }
 
     public void start() {
