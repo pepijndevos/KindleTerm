@@ -129,10 +129,10 @@ public class TermKindlet extends AbstractKindlet
 		    session.typeString(props.getProperty("login") + "\n");
 		    Thread.sleep(1000);
 		    session.typeString(props.getProperty("password") + "\n");
-		    Thread.sleep(1000);
 	    }
 	    
 	    if(props.getProperty("cmd") != null) {
+		    Thread.sleep(1000);
 		    String cmd = props.getProperty("cmd");
 		    session.typeString(cmd + "\n");
 	    }

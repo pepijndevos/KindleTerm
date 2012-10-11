@@ -547,19 +547,7 @@ public class KindleTerminal
         } else if (symbolActive) {
             return;
         } else if (code == KindleKeyCodes.VK_FIVE_WAY_SELECT) {
-            inputmode++;
-            if(inputmode > INPUT_MODE_MAX) inputmode = INPUT_MODE_NORMAL;
-            if(inputmode == INPUT_MODE_ALTCHR) {
-                context.setSubTitle("[ALT CHAR]");
-            } else if(inputmode == INPUT_MODE_CTRL) {
-                context.setSubTitle("[CTRL-...]");
-            } else if(inputmode == INPUT_MODE_ALT) {
-                context.setSubTitle("[ALT-...]");
-            } else if(inputmode == INPUT_MODE_ALTCTRL) {
-                context.setSubTitle("[CTRL-ALT-...]");
-            } else {
-                context.setSubTitle("");
-            }
+            buffer.keyTyped(VT320.VK_ENTER, '\n', 0);
         } else if (code == KeyEvent.VK_BACK_SPACE) {
             buffer.keyPressed(VT320.VK_BACK_SPACE, 0);
         } else if (code == KindleKeyCodes.VK_FIVE_WAY_UP) {
